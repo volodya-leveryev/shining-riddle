@@ -1,8 +1,9 @@
 *.pyc
 .dockerignore
 .gitignore
-.idea
+.idea/
 Dockerfile
 LICENSE
+data/
 readme.md
-venv
+venv/
