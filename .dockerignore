@@ -1,0 +1,8 @@
+*.pyc
+.dockerignore
+.gitignore
+.idea
+Dockerfile
+LICENSE
+readme.md
+venv
