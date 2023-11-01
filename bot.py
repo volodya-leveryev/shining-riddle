@@ -8,8 +8,9 @@ from os.path import join
 
 from aiogram import Bot, Dispatcher
 from aiogram.enums import ParseMode
-from aiogram.filters import CommandStart
-from aiogram.types import Message, User
+from aiogram.filters import CommandStart, Command
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message, User
+from aiogram.types.web_app_info import WebAppInfo
 from aiogram.utils.markdown import bold
 
 # Конфигурация
@@ -19,6 +20,7 @@ with open(config_filename, mode='rb') as config_file:
     TOKEN = config.get('TG_TOKEN')
     ADMINS = config.get('ADMINS')
     USERS = config.get('USERS')
+    URL_CREATE_COURSE = config.get('URL_CREATE_COURSE')
 
 # Диспетчер сообщений
 disp = Dispatcher()
@@ -54,7 +56,10 @@ def auth_user_required(func: Handler) -> Handler:
 @auth_user_required
 async def cmd_start(message: Message) -> None:
     """Команда /start"""
-    await message.answer(f"Hello {bold(message.from_user.full_name)}")
+    app = WebAppInfo(url=URL_CREATE_COURSE)
+    btn = InlineKeyboardButton(text="test", web_app=app)
+    kbd = InlineKeyboardMarkup(inline_keyboard=[[btn]])
+    await message.answer(f"Hello {bold(message.from_user.full_name)}", reply_markup=kbd)
 
 
 async def main() -> None:
