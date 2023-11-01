@@ -7,9 +7,14 @@
 </head>
 <body>
     <h1>Привет!</h1>
-    <button onclick="">Нажми меня</button>
+    <button onclick="closeWebApp()">Нажми меня</button>
     <script>
-        Telegram.WebApp.close()
+        function closeWebApp() {
+            Telegram.WebApp.openTelegramLink("https://t.me/leveryev_test_bot?start=lalala")
+            Telegram.WebApp.close()
+        }
+        Telegram.WebApp.ready()
+        Telegram.WebApp.expand()
     </script>
 </body>
 </html>

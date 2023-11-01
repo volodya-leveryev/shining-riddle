@@ -54,12 +54,18 @@ def auth_user_required(func: Handler) -> Handler:
 
 @disp.message(CommandStart())
 @auth_user_required
-async def cmd_start(message: Message) -> None:
+async def cmd_start(msg: Message) -> None:
     """Команда /start"""
     app = WebAppInfo(url=URL_CREATE_COURSE)
-    btn = InlineKeyboardButton(text="test", web_app=app)
+    btn = InlineKeyboardButton(text="test",  web_app=app)
     kbd = InlineKeyboardMarkup(inline_keyboard=[[btn]])
-    await message.answer(f"Hello {bold(message.from_user.full_name)}", reply_markup=kbd)
+    await msg.answer(f"Hello {bold(msg.from_user.full_name)}", reply_markup=kbd)
+
+
+@disp.message()
+async def echo_all(msg: Message) -> None:
+    logging.info(msg.text)
+    await msg.answer(msg.text)
 
 
 async def main() -> None:
